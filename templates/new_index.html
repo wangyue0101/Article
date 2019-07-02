@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <button id="load">load more</button>
+    <script type="text/javascript">
+    $(function () {
+        $("#load").click(function () {
+            $.ajax({
+                url: "/more",
+                type: "get",
+                success: function (data) {
+                    $(".body").append(data);
+                }
+            })
+        })
+    })
+    </script>
+</body>
+</html>

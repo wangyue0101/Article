@@ -1,0 +1,25 @@
+{% extends "bootstrap/base.html" %}
+
+{% block navbar %}
+    <div align="right" style="color: dodgerblue; height: 50px; font-size: 15px; background-color: #d6e9c6">
+        {% if session.get("user") %}
+            <div style="padding: 15px;">
+                <a href="{{ url_for("article_blue_api.get_user_article", user_id=session.get("user").id) }}" style="padding-right: 10px">{{ session.get("user").name }}</a>
+                <a href="{{ url_for("user_blue_api.login_out") }}" style="margin-right: 10px">退出</a>
+            </div>
+        {% else %}
+            <div style="padding: 15px;">
+                <a href="{{ url_for("user_blue_api.login") }}" style="padding-right: 10px">登录</a>
+                <a href="{{ url_for("user_blue_api.register_user") }}" style="margin-right: 10px">注册</a>
+            </div>
+        {% endif %}
+    </div>
+    {{ nav.navbar.render() }}
+{% endblock %}
+
+{% block content %}
+    {% if get_flashed_messages()[0] %}
+        <div class="alert-info">{{ get_flashed_messages()[0] }}</div>
+        {% else %}
+    {% endif %}
+{% endblock %}

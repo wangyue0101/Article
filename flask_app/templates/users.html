@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {{ super() }}
+    <ul>
+        {% for user in users %}
+            <li>
+            <a href="{{ url_for("article_blue_api.get_user_article", user_id=user.id) }}" style="padding-right: 10px">{{ user.name }}</a>
+            <a href="{{ url_for("user_blue_api.delete_user", user_id=user.id) }}" class="btn btn-primary">删除用户</a>
+            </li>
+            <br>
+        {% endfor %}
+    </ul>
+{% endblock %}

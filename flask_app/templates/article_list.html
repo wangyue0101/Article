@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+        .thead{
+            text-align: center;
+        }
+        .btn-margin{
+            margin-right: 10px;
+            font-size: 15px;
+        }
+        .btn-next{
+            font-size: 15px;
+            padding: 5px;
+            margin-bottom: 8px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div style="margin: 30px">
+        <table border="1"  width="1000px">
+            <tr>
+                {% if get_flashed_messages()[0] %}
+                {{ get_flashed_messages()[0] }}
+                {% else %}
+                {% endif %}
+            </tr>
+            <tr>
+                <th class="thead">标题</th>
+                <th class="thead">内容</th>
+                <th class="thead">评论</th>
+                <th class="thead">作者姓名</th>
+                <th class="thead">作者ID</th>
+                <th class="thead">点击删除</th>
+                <th class="thead">点击评论</th>
+                <th class="thead">点击修改</th>
+            </tr>
+            {% for i in article_content %}
+                <tr align="center">
+                    <td><strong>{{ i.title|title }}</strong></td>
+                    <td>{{ i.content }}</td>
+                    {% if i.comment.first() %}
+                    <td>{{ i.comment.all()[-1].comment }}</td>
+                    {% else %}
+                    <td>{{ i.comment.first().comment }}</td>
+                    {% endif %}
+                    <td>{{ i.user.name }}</td>
+                    <td>{{ i.author_id }}</td>
+                    <td><a href="{{ url_for("article_blue_api.delete_article", article_id=i.id) }}">删除文章</a></td>
+                    <td><a href="{{ url_for("article_blue_api.posts", article_id=i.id) }}">评论文章</a></td>
+                    <td><a href="{{ url_for("article_blue_api.update_article", article_id=i.id) }}">修改内容</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <div style="margin-left: 40%; margin-top: 20px">
+            {% for page in range(1, pagination.pages) %}
+                <a href="{{ url_for("article_blue_api.get_article_list", page=page) }}" class="btn-margin">{{ page }}</a>
+            {% endfor %}
+            <a href="{{ url_for("article_blue_api.get_article_list", page=pagination.pages) }}" class="btn-margin">{{ pagination.pages }}</a>
+            {% if pagination.page == pagination.pages %}
+                <a href="#" class="btn btn-primary btn-margin btn-next">next</a>
+            {% else %}
+                <a href="{{ url_for("article_blue_api.get_article_list", page=pagination.next_num) }}" class="btn btn-primary btn-margin btn-next">next</a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

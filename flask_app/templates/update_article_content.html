@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <div style="margin: 50px">
+        <form action="" method="post">
+                <p style="font-weight: bold;">文章标题</p>
+                <input type="text" value="{{ article }}" readonly>
+                <p style="font-weight: bold; margin-top: 10px">文章内容</p>
+{#                <input type="text" name="content" >#}
+                <textarea name="content" cols="30" rows="10"></textarea>
+                <input type="submit" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock %}

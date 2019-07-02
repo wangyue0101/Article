@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {{ super() }}
+    {% for foo in article %}
+        <b>{{ foo.title|upper }}</b>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <i>{{ foo.content }}</i>
+        <br>
+        <br>
+    {% endfor %}
+{% endblock %}
